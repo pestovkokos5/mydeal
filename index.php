@@ -2,12 +2,13 @@
 // показывать или нет выполненные задачи
 $title="Дела в порядке";
 $user_name="Константин";
+$krit=24*60*60;
 $show_complete_tasks = rand(0, 1);
 $projects=array("Входящие", "Учеба", "Работа", "Домашние дела", "Авто");
 $tasks=array(
   0=>array(
     'task'=>'Собеседование в IT компании',
-    'date'=> '01.12.2019',
+    'date'=> '01.12.2020',
     'category'=> 'Работа',
     'sucsess' => false
   ),
@@ -50,6 +51,6 @@ function count_projects($tasks, $project_name) {
   return $count;
 }
 include_once("helpers.php");
-$content=include_template("main.php", array('projects' => $projects, 'tasks'=>$tasks, 'show_complete_tasks'=>$show_complete_tasks));
+$content=include_template("main.php", array('projects' => $projects, 'tasks'=>$tasks, 'show_complete_tasks'=>$show_complete_tasks, 'krit' => $krit));
 print(include_template("layout.php", array('title' => $title, 'content'=>$content, 'user_name'=>$user_name)));
 ?>

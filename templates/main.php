@@ -18,7 +18,6 @@
 
 <main class="content__main">
     <h2 class="content__main-heading">Список задач</h2>
-
     <form class="search-form" action="index.php" method="post" autocomplete="off">
         <input class="search-form__input" type="text" name="" value="" placeholder="Поиск по задачам">
 
@@ -43,7 +42,7 @@
     <table class="tasks">
     <?php foreach ($tasks as $task) :?>
         <?php if ($show_complete_tasks==0 and $task['sucsess']==true) {continue;}?>
-        <tr class="tasks__item task <?php echo ($task['sucsess']==true) ? 'task--completed' : ''?>">
+        <tr class="tasks__item task <?php echo ($task['sucsess']==true) ? 'task--completed' : ''?> <?php echo ($krit>strtotime($task['date'])-strtotime("now")) ? 'task--important' : ''?>">
             <td class="task__select">
                 <label class="checkbox task__checkbox">
                     <input class="checkbox__input visually-hidden" type="checkbox" <?php echo ($task['sucsess']==true) ? 'checked' : ''?>>
