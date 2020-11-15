@@ -9,8 +9,12 @@ if (!$link) {
     exit;
 }
 
-echo "Соединение с MySQL установлено!" . PHP_EOL;
-echo "Информация о сервере: " . mysqli_get_host_info($link) . PHP_EOL;
+$res = $link->query("SELECT projects FROM projects WHERE user_id=2");
+while ($res_proj = $res->fetch_assoc()) {
+  $project[]=$res_proj['projects'];
+}
+
+print_r($project);
 
 mysqli_close($link);
 
