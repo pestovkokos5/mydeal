@@ -9,19 +9,21 @@ if (!$link) {
     exit;
 }
 
-$res = $link->query("SELECT projects FROM projects WHERE user_id=2");
+$res = $link->query("SELECT projects FROM projects WHERE user_id=1");
 while ($res_proj = $res->fetch_assoc()) {
   $projects[]=$res_proj['projects'];
 }
 
-print_r($projects);
 
-$res = $link->query("SELECT * FROM tasks WHERE user_id=2");
+$i=0;
+$res = $link->query("SELECT t.status, t.name, t.file, t.srok, p.projects AS p_projects FROM tasks t INNER JOIN projects p ON t.project_id = p.id WHERE t.user_id=1");
 while ($res_tasks = $res->fetch_assoc()) {
-  $tasks[]=$res_tasks;
+  $tasks[$i]['task']=$res_tasks['name'];
+  $tasks[$i]['date']=$res_tasks['srok'];
+  $tasks[$i]['category']=$res_tasks['p_projects'];
+  $tasks[$i]['sucsess']=$res_tasks['status'];
+  $i++;
 }
-
-print_r($tasks);
 
 mysqli_close($link);
 
@@ -31,45 +33,7 @@ $title="Дела в порядке";
 $user_name="Константин";
 $krit=24*60*60;
 $show_complete_tasks = rand(0, 1);
-$projects=array("Входящие", "Учеба", "Работа", "Домашние дела", "Авто");
-$tasks=array(
-  0=>array(
-    'task'=>'Собеседование в IT компании',
-    'date'=> '01.12.2020',
-    'category'=> 'Работа',
-    'sucsess' => false
-  ),
-  1=>array(
-    'task'=>'Выполнить тестовое задание',
-    'date'=> '25.12.2019',
-    'category'=> 'Работа',
-    'sucsess' => false
-  ),
-  2=>array(
-    'task'=>'Сделать задание первого раздела',
-    'date'=> '21.12.2019',
-    'category'=> 'Учеба',
-    'sucsess' => true
-  ),
-  3=>array(
-    'task'=>'Встреча с другом',
-    'date'=> '22.12.2019',
-    'category'=> 'Входящие',
-    'sucsess' => false
-  ),
-  4=>array(
-    'task'=>'Купить корм для кота',
-    'date'=> null,
-    'category'=> 'Домашние дела',
-    'sucsess' =>false
-  ),
-  5=>array(
-    'task'=>'Заказать пиццу',
-    'date'=> null,
-    'category'=> 'Домашние дела',
-    'sucsess' =>false
-  ),
-);
+
 function count_projects($tasks, $project_name) {
   $count=0;
   foreach ($tasks as $task):
