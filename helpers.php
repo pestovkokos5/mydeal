@@ -126,19 +126,19 @@ function get_noun_plural_form (int $number, string $one, string $two, string $ma
  * @param array $data Ассоциативный массив с данными для шаблона
  * @return string Итоговый HTML
  */
-function include_template($name, array $data = []) {
-    $name = 'templates/' . $name;
-    $result = '';
+function include_template($name, array $data = []) { //задаём функцию include_template с двумя аргументами $name и массив $data
+    $name = 'templates/' . $name;                    //переменной name задаём путь до файла
+    $result = '';                                    //определяем переменную $result
 
-    if (!is_readable($name)) {
-        return $result;
+    if (!is_readable($name)) {                       //Определяем существование файла по пути $name и доступность его для чтения
+        return $result;                              //Если файл не читается и не доступен возвращаем ничего (пустую строку)
     }
 
-    ob_start();
-    extract($data);
-    require $name;
+    ob_start();                                      //Включаем буферизацию вывода (то есть как я понял вывод скрипта не отправляется только заголовки)
+    extract($data);                                  //разбиваем массив на переменную с именем ключа и значением переменной = значению элемента массива
+    require $name;                                   //подключаем шаблон
 
-    $result = ob_get_clean();
+    $result = ob_get_clean();                        //Получаем содержимое буфера и удаляем его
 
-    return $result;
+    return $result;                                  //Возвращаем переменную result
 }
