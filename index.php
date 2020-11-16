@@ -11,10 +11,17 @@ if (!$link) {
 
 $res = $link->query("SELECT projects FROM projects WHERE user_id=2");
 while ($res_proj = $res->fetch_assoc()) {
-  $project[]=$res_proj['projects'];
+  $projects[]=$res_proj['projects'];
 }
 
-print_r($project);
+print_r($projects);
+
+$res = $link->query("SELECT * FROM tasks WHERE user_id=2");
+while ($res_tasks = $res->fetch_assoc()) {
+  $tasks[]=$res_tasks;
+}
+
+print_r($tasks);
 
 mysqli_close($link);
 
